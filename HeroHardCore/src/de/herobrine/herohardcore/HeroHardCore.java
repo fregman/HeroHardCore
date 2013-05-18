@@ -12,7 +12,8 @@ import de.herobrine.herohardcore.Listener.QuitListener;
 public class HeroHardCore extends JavaPlugin {
 	
 
-	String folder;
+
+	
 	
 
 	
@@ -21,8 +22,11 @@ public class HeroHardCore extends JavaPlugin {
 	@Override
     public void onEnable(){	
 		
+
+		
 		checkFolder();
 		
+
 		getLogger().info("HeroHardCore gestartet");
 		new LoginListener(this);
 		new QuitListener(this);

@@ -16,23 +16,14 @@ public class DeathListener extends HeroListener{
 	
 	@EventHandler
 	public void onPlayerDeath(PlayerDeathEvent event) {
-		
-		
-		
+
 		Player player = event.getEntity();
-		
+		StringBuilder kickMsg = new StringBuilder();
 		ArrayList<String> userData = new ArrayList<String>();
-		
 		userData = readPlayerFile(player);
 		
-		StringBuilder kickMsg = new StringBuilder();
-		
 		long diff = (now() - Long.parseLong(userData.get(0)));
-		System.out.println("differenz " + diff);
-		int diffnew = (int) (Integer.parseInt(userData.get(1)) + diff);
-		System.out.println("differenz neu " + diffnew);
-		
-		
+		int diffnew = (int) (Integer.parseInt(userData.get(1)) + diff);		
 		int playTime = diffnew;
 		
 		int sec 	= playTime/1000 % 60;
@@ -56,20 +47,10 @@ public class DeathListener extends HeroListener{
 			   .append(min).append(" ").append(minute).append(", ")
 			   .append(sec).append(" ").append(sekunde).append(" durchgehalten\n")
 			   .append("Viel Glück beim nächsten Mal!");
-		
-		
-		
+
 		player.kickPlayer(kickMsg.toString());
 		//player.setBanned(true);
 		
-		
 	}
-
-	
-	
-	
-	
-	
-	
 
 }

@@ -22,38 +22,24 @@ public class LoginListener extends HeroListener{
 	@EventHandler
 	public void onPlayerLogin(PlayerLoginEvent event) {
 		
-		
-		
 		Player player = event.getPlayer();
-		
 		ArrayList<String> userData = new ArrayList<String>();
-		
 		File playerFile = new File(folder + "/" + player.getName());
-
-		
-        
-		
 
 		if(!player.isBanned()){
 			
 			if (playerFile.exists()) {
 
 				userData = readPlayerFile(player);
+				
 				userData.set(0, String.valueOf(now()));
-				
-				System.out.println("File vorhanden, Daten:");
-				for (int i = 0;i<userData.size();i++) System.out.println(userData.get(i));
-				
+	
 				savePlayerData(userData, player);
-
 
 			} else {
 				
 				userData.add(0, String.valueOf(now()));
 				userData.add(1, "0");
-				
-				System.out.println("File nicht vorhanden, Daten:");
-				for (int i = 0;i<userData.size();i++) System.out.println(userData.get(i));
 				
 				savePlayerData(userData, player);
 				

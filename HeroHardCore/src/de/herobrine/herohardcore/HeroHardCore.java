@@ -12,22 +12,12 @@ import de.herobrine.herohardcore.Listener.QuitListener;
 public class HeroHardCore extends JavaPlugin {
 	
 
-
-	
-	
-
-	
-
-	
 	@Override
     public void onEnable(){	
-		
-
-		
+	
 		checkFolder();
 		
-
-		getLogger().info("HeroHardCore gestartet");
+		getLogger().info("starting HeroHardCore");
 		new LoginListener(this);
 		new QuitListener(this);
 		new DeathListener(this);
@@ -38,40 +28,27 @@ public class HeroHardCore extends JavaPlugin {
 
 	@Override
     public void onDisable() {
-		getLogger().info("HeroHardCore gestoppt");
+		
+		getLogger().info("Stopping HeroHardCore");
 
     }	
-    
-    public void checkFolder() {
-		
-    	
 
-    	
+	
+
+	public void checkFolder() {
+		
     	File dir = new File(this.getDataFolder().getAbsolutePath());
-
-    	
-    	if (dir.exists()){
-    		
-    		System.out.println("Verzeichnis vorhanden");
-    		System.out.println(dir);
-    		
-    	} else {
-    		
-    		if (dir.mkdir()) {
+	
+    	if (dir.mkdir()) {
+    				
+    		getLogger().info("Pluginfolder created");
     			
-    			
-    			System.out.println("Verzeichnis erstellt");
-    			
-    		} else {
-    			System.out.println(dir);
-    			System.out.println("Verzeichnis konnte nicht erstellt werden");
-    		}
-    		
+	    } else {
+	    
+			getLogger().info("Creation of pluginfolder failed");
     	}
-		
+    		
 	}
-    
-    
-
+	
 }
 

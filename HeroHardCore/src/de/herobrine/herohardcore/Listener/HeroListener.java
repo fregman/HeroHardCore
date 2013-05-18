@@ -15,17 +15,16 @@ import de.herobrine.herohardcore.HeroHardCore;
 
 public class HeroListener implements Listener{
 	
-	 final String folder;
-	 final HeroHardCore plugin;
+	final String folder;
+	final HeroHardCore plugin;
 	
 	public HeroListener(HeroHardCore plugin) {
 		
 		this.plugin = plugin;
+	    this.folder = plugin.getDataFolder().getAbsolutePath();
 		   
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
-	    folder = plugin.getDataFolder().getAbsolutePath();
-	    
-	        
+
 	}
 	
 	
@@ -35,36 +34,35 @@ public class HeroListener implements Listener{
 		
 	}
 
+	
 	public ArrayList<String> readPlayerFile(Player player) {
-
 		
 		ArrayList<String> userData = new ArrayList<String>();
 		File playerFile = new File(folder + "/" + player.getName());
 		
-		String zeile = "";
+		String line = "";
 
 		try {
 			
 			BufferedReader rd = new BufferedReader(new FileReader(playerFile));
 			
-			zeile = rd.readLine();
+			line = rd.readLine();
 			
-			while(zeile != null) {
+			while(line != null) {
 			
-				userData.add(zeile);
-				zeile = rd.readLine();
+				userData.add(line);
+				line = rd.readLine();
 				
 			}
 
 			rd.close();
 			
-		} catch (NumberFormatException e) {
-
-			e.printStackTrace();
 		} catch (FileNotFoundException e) {
 
-			e.printStackTrace();
+			System.out.println("File not Found in readPlayerFile()");
 		} catch (IOException e) {
+			
+			System.out.println("Error in readPlayerFile():");
 			e.printStackTrace();
 		}
 		return userData;
@@ -80,7 +78,8 @@ public class HeroListener implements Listener{
 			try {
 				playerFile.createNewFile();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				
+				System.out.println("Error in savePlayerData() while createNewFile:");
 				e.printStackTrace();
 			}
 			
@@ -97,22 +96,14 @@ public class HeroListener implements Listener{
 					
 		}
 		
-		write.close();
+			write.close();
 		
 		} catch (IOException e) {
-	
+			
+			System.out.println("Error in savePlayerData() while writing Data to playerFile");
 			e.printStackTrace();
 		}
 		
-		System.out.println("Daten gespeichert");
-		
-		for (int i = 0;i<userData.size();i++) System.out.println(userData.get(i));
-		
-		
 	}
-
-	
-	
-	
 
 }

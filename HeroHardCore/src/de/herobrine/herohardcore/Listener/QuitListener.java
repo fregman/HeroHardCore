@@ -12,6 +12,7 @@ public class QuitListener extends HeroListener{
 
 	public QuitListener(HeroHardCore plugin) {
 		super(plugin);
+		
 	}
 
 	
@@ -19,12 +20,9 @@ public class QuitListener extends HeroListener{
 	public void onPlayerQuitEvent(PlayerQuitEvent event){
 		
 		Player player = event.getPlayer();
-
 		ArrayList<String> userData = new ArrayList<String>();
-
 		userData = readPlayerFile(player);
 		
-	
 		long diff = (now() - Long.parseLong(userData.get(0)));
 		int diffnew = (int) (Integer.parseInt(userData.get(1)) + diff);
 		
@@ -33,6 +31,5 @@ public class QuitListener extends HeroListener{
 		savePlayerData(userData, player);
 		
 	}
-	
 	
 }

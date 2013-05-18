@@ -1,0 +1,10 @@
+bin
+.metadata 
+bukkit
+config
+lib
+.setting
+build.xml
+run.sh
+.classpath
+.project

@@ -50,6 +50,8 @@ public class LoginListener extends HeroListener{
 					
 					write.write(userData.get(i));
 					write.write(System.getProperty("line.separator"));
+					System.out.println(userData.get(i));
+					
 						
 				}
 				

@@ -1,4 +1,4 @@
-package Sheduler;
+package de.herobrine.herohardcore.Timer;
 
 import java.util.ArrayList;
 

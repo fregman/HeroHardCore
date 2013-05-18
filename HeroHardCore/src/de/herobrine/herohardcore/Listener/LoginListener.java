@@ -8,8 +8,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.scheduler.BukkitTask;
 
-import Sheduler.HeroTask;
 import de.herobrine.herohardcore.HeroHardCore;
+import de.herobrine.herohardcore.Timer.HeroTask;
 
 public class LoginListener extends HeroListener{
 	

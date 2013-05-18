@@ -4,6 +4,7 @@ import java.io.File;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import de.herobrine.herohardcore.CommandExecutor.HeroCommandExecutor;
 import de.herobrine.herohardcore.Listener.DeathListener;
 import de.herobrine.herohardcore.Listener.LoginListener;
 import de.herobrine.herohardcore.Listener.QuitListener;
@@ -21,6 +22,8 @@ public class HeroHardCore extends JavaPlugin {
 		new LoginListener(this);
 		new QuitListener(this);
 		new DeathListener(this);
+		
+		getCommand("reset").setExecutor(new HeroCommandExecutor(this));
        
     }
  
@@ -44,8 +47,9 @@ public class HeroHardCore extends JavaPlugin {
     		getLogger().info("Pluginfolder created");
     			
 	    } else {
-	    
-			getLogger().info("Creation of pluginfolder failed");
+	    	
+	    	if(!dir.exists()) getLogger().info("Creation of pluginfolder failed");
+	    	
     	}
     		
 	}

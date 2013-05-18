@@ -1,3 +1,9 @@
-    name: HeroHardCore
-    main: de.herobrine.herohardcore.HeroHardCore
-    version: 0.1
+name: HeroHardCore
+main: de.herobrine.herohardcore.HeroHardCore
+version: 0.1
+
+commands:
+   reset:
+      description: Reset Playerfile.
+      usage: /<command> [player]
+

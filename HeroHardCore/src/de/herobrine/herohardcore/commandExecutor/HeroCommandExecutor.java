@@ -90,16 +90,14 @@ public class HeroCommandExecutor implements CommandExecutor{
 					
 					sender.sendMessage(plugin.getConfig().getString(plugin.language + ".noPermission"));
 					
+					success = true;
+					
 				}
 		}
 
 		return success;
 			
 	}
-			
-		
-		
-		
 
 	private boolean resetPlayer(String playername) {
 		
@@ -114,7 +112,6 @@ public class HeroCommandExecutor implements CommandExecutor{
 					FileWriter write = new FileWriter(playerFile);
 					
 					write.write(String.valueOf(System.currentTimeMillis()));
-					System.out.println(String.valueOf(System.currentTimeMillis()));
 					write.write(System.getProperty("line.separator"));
 					write.write("0");
 					

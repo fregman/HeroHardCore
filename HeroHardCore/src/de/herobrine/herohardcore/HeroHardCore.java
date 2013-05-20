@@ -6,7 +6,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import de.herobrine.herohardcore.commandExecutor.HeroCommandExecutor;
 import de.herobrine.herohardcore.listener.DeathListener;
 import de.herobrine.herohardcore.listener.LoginListener;
-import de.herobrine.herohardcore.listener.QuitListener;
+import de.herobrine.herohardcore.listener.QuitListener; 
 import de.herobrine.herohardcore.tools.FileManager;
 
 
@@ -14,7 +14,8 @@ public class HeroHardCore extends JavaPlugin {
 	
 	public String language;
 	public int intervall;
-	FileManager fileManager; 
+	public FileManager fileManager;
+	public String folder;
 	
 
 	@Override
@@ -25,8 +26,7 @@ public class HeroHardCore extends JavaPlugin {
 		
 	    this.language = getConfig().getString("language");
 	    this.intervall = getConfig().getInt("saveIntervallInSeconds")*20;
-		
-		getLogger().info("starting HeroHardCore");
+		this.folder = getDataFolder().getAbsolutePath();
 		
 		new LoginListener(this);
 		new QuitListener(this);

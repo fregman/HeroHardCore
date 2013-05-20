@@ -1,3 +1,38 @@
 language: en
-saveIntervall: 10
+saveIntervallInSeconds: 10
+banOnDeath: true
+en:
+   day: "day"
+   days: "days"
+   hour: "hour"
+   hours: "hours"
+   minute: "minute"
+   minutes: "minutes"
+   second: "second"
+   seconds: "seconds"
+   playerDies: "You died :("
+   luck: "Good luck for the next try!"
+   playerNotOnServer: "Player wasn't on the server!"
+   pleaseConfirm: "Please confirm reset of Player "
+   withresetConfirm: "with /reset confirm "
+   confirmCodeWrong: "confirmcode wrong, please try again. "
+   playTime: "Your playtime: "
+   noPermission: "You don't have the permission to do that!"
 
+de:
+   day: "Tag"
+   days: "Tage"
+   hour: "Stunde"
+   hours: "Stunden"
+   minute: "Minute"
+   minutes: "Minuten"
+   second: "Sekunde"
+   seconds: "Sekunden"
+   playerDies: "Du bist gestorben :("
+   luck: "Viel Glueck beim naechsten Mal!"
+   playerNotOnServer: "Spieler war nicht auf dem Server!"
+   pleaseConfirm: "Bitte bestaetige den reset vom Spieler "
+   withresetConfirm: "mit /reset confirm "
+   confirmCodeWrong: "Bestaetigungscode war falsch. "
+   playTime: "Deine Spielzeit: "
+   noPermission: "Du hast nicht die noetigen Rechte dafuer!"

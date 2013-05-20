@@ -21,7 +21,7 @@ public class FileManager {
 	public FileManager(HeroHardCore plugin) {
 		
 		this.plugin = plugin;
-		this.folder = plugin.getDataFolder().getAbsolutePath();
+		this.folder = plugin.folder;
 	
 	}
 	
@@ -30,7 +30,10 @@ public class FileManager {
 		boolean success = false;
 		
 		File config = new File(folder, "config.yml");
-	
+		File playerDir = new File(folder + "/players/");
+
+		if (!playerDir.exists()) playerDir.mkdir();
+
 	    if (!config.exists()) {
 	        plugin.saveDefaultConfig();
 	        success = true;
@@ -41,7 +44,7 @@ public class FileManager {
 	public ArrayList<String> readPlayerFile(Player player) {
 		
 		ArrayList<String> userData = new ArrayList<String>();
-		File playerFile = new File(folder + "/" + player.getName());
+		File playerFile = new File(folder + "/players/" + player.getName());
 		
 		String line = "";
 
@@ -74,7 +77,7 @@ public class FileManager {
 	
 	public void savePlayerData(ArrayList<String> userData, Player player){
 		
-		File playerFile = new File(folder + "/" + player.getName());
+		File playerFile = new File(folder + "/players/" + player.getName());
 		
 		if (!playerFile.exists()) {
 			

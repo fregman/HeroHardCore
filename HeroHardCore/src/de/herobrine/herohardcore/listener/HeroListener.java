@@ -10,12 +10,12 @@ public class HeroListener implements Listener{
 	final String folder;
 	final HeroHardCore plugin;
 	final FileManager fileManager;
-
+	
 	
 	public HeroListener(HeroHardCore plugin) {
 		
 		this.plugin = plugin;
-	    this.folder = plugin.getDataFolder().getAbsolutePath();
+	    this.folder = plugin.folder;
 	    this.fileManager = new FileManager(plugin);
 
 		   
@@ -30,4 +30,15 @@ public class HeroListener implements Listener{
 		
 	}
 
+	
+	public String getConfigString(String string) {
+		
+		String configString = plugin.getConfig().getString(plugin.language + "." + string);
+		
+		return configString;
+		
+	}
+	
+	
+	
 }

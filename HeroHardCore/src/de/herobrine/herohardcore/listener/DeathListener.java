@@ -34,23 +34,23 @@ public class DeathListener extends HeroListener{
 		int hour 	= playTime/1000/60/60 % 24;
 		int day		= playTime/1000/60/60/24;
 		
-		String tag = plugin.getConfig().getString(language + ".days");
-		String stunde = plugin.getConfig().getString(language + ".hours");
-		String minute = plugin.getConfig().getString(language + ".minutes");
-		String sekunde = plugin.getConfig().getString(language + ".seconds");
+		String dayString = getConfigString("days");
+		String hourString = getConfigString("hours");
+		String minString = getConfigString("minutes");
+		String secString = getConfigString("seconds");
 		
-		if (day == 1) tag = plugin.getConfig().getString(language + ".day");
-		if (hour == 1) stunde = plugin.getConfig().getString(language + ".hour");
-		if (min == 1) minute = plugin.getConfig().getString(language + ".minute");
-		if (sec == 1) sekunde = plugin.getConfig().getString(language + ".second");
+		if (day == 1) dayString = getConfigString("days");
+		if (hour == 1) hourString = getConfigString("hour");
+		if (min == 1) minString = getConfigString("minute");
+		if (sec == 1) secString = getConfigString("second");
 		
-		kickMsg.append(plugin.getConfig().getString(language + ".playerDies") + "\n")
-		       .append(plugin.getConfig().getString(language + ".playTime"))
-			   .append(day).append(" ").append(tag).append(", ")
-			   .append(hour).append(" ").append(stunde).append(", ")
-			   .append(min).append(" ").append(minute).append(", ")
-			   .append(sec).append(" ").append(sekunde)
-			   .append(" \n" + plugin.getConfig().getString(language + ".luck"));
+		kickMsg.append(getConfigString("playerDies") + "\n")
+		       .append(getConfigString("playTime"))
+			   .append(day).append(" ").append(dayString).append(", ")
+			   .append(hour).append(" ").append(hourString).append(", ")
+			   .append(min).append(" ").append(minString).append(", ")
+			   .append(sec).append(" ").append(secString)
+			   .append(" \n" + getConfigString("luck"));
 
 		player.kickPlayer(kickMsg.toString());
 		
@@ -60,5 +60,7 @@ public class DeathListener extends HeroListener{
 
 		
 	}
+
+
 
 }

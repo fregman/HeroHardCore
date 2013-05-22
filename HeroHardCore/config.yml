@@ -1,6 +1,15 @@
 language: en
 saveIntervallInSeconds: 10
 banOnDeath: true
+secondChance: true
+secondChanceTime: 120
+enableMySQL: true
+mysql:
+   host: 85.131.156.196
+   port: 3306
+   database: ni4078_1_DB
+   username: ni4078_1_DB
+   password: qpyZ7yS7
 en:
    day: "day"
    days: "days"
@@ -18,7 +27,7 @@ en:
    confirmCodeWrong: "confirmcode wrong, please try again. "
    playTime: "Your playtime: "
    noPermission: "You don't have the permission to do that!"
-
+   secondChance: "You got a second Chance, don't be careful this time!"
 de:
    day: "Tag"
    days: "Tage"
@@ -36,3 +45,5 @@ de:
    confirmCodeWrong: "Bestaetigungscode war falsch. "
    playTime: "Deine Spielzeit: "
    noPermission: "Du hast nicht die noetigen Rechte dafuer!"
+   secondChance: "Du hast eine zweite Chance erhalten, sei vorsichtiger!"
+

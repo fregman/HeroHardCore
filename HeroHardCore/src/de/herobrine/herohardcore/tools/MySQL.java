@@ -6,16 +6,21 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import de.herobrine.herohardcore.HeroHardCore;
 
 public class MySQL {
 
-	static final HeroHardCore plugin = null;
+	static HeroHardCore plugin = null;
 
 	private static Connection con = null;
+	
+	 private String tableName;
 
 	public MySQL(HeroHardCore plugin) {
+		
+		this.tableName = plugin.getConfig().getString("mysql.tablename");
 
 		try {
 
@@ -30,10 +35,13 @@ public class MySQL {
 					+ plugin.getConfig().getString("mysql.password"));
 
 		} catch (ClassNotFoundException e) {
-			System.out.println("Treiber nicht gefunden");
+			System.out.println("Driver not found");
 		} catch (SQLException e) {
-			System.out.println("Connect nicht moeglich");
+			System.out.println("Couldn't connect to MySQL Server");
+			e.printStackTrace();
 		}
+		
+		
 
 	}
 
@@ -51,14 +59,14 @@ public class MySQL {
 
 		if (con != null) {
 
-			Statement query;
-
 			try {
-				query = con.createStatement();
+	
+				String querySql = "SHOW TABLES LIKE ?";
 
-				String sql = "SHOW TABLES LIKE 'player'";
-
-				ResultSet result = query.executeQuery(sql);
+				PreparedStatement preparedQueryStatement = con
+						.prepareStatement(querySql);
+				preparedQueryStatement.setString(1, tableName);
+				ResultSet result = preparedQueryStatement.executeQuery();
 
 				success = result.next();
 
@@ -83,10 +91,12 @@ public class MySQL {
 			try {
 				query = con.createStatement();
 
-				String sql = "CREATE TABLE player(id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY(id), name VARCHAR(30),  loginTime TIMESTAMP, playTime INT)";
+				String sql = "CREATE TABLE " + tableName + "(id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY(id), name VARCHAR(30),  " +
+						     "loginTime TIMESTAMP, playTime INT, isdeath CHAR)";
 
 				query.execute(sql);
 
+				
 			} catch (SQLException e) {
 
 				e.printStackTrace();
@@ -98,8 +108,6 @@ public class MySQL {
 
 	public boolean checkPlayer(String name) {
 
-		System.out.println("Player wird geprüft: " + name);
-
 		boolean success = false;
 
 		con = getInstance();
@@ -108,25 +116,15 @@ public class MySQL {
 
 			try {
 
-				String querySql = "SELECT *" + "FROM player "
-						+ "WHERE name = ?";
+				String querySql = "SELECT *" + "FROM " + tableName
+						+ " WHERE name = ?";
 
-				// PreparedStatement erzeugen.
 				PreparedStatement preparedQueryStatement = con
 						.prepareStatement(querySql);
 				preparedQueryStatement.setString(1, name);
 				ResultSet result = preparedQueryStatement.executeQuery();
 
 				success = result.next();
-
-				if (success) {
-
-					System.out.println("player vorhanden");
-
-				} else {
-
-					System.out.println("palyer fehlt");
-				}
 
 			} catch (SQLException e) {
 
@@ -139,14 +137,13 @@ public class MySQL {
 
 	public void insertTime(String playerName) {
 
-		System.out.println("Zeit wird eingetragen");
 
 		con = getInstance();
 
 		if (con != null) {
 
 			try {
-				String updateSql = "UPDATE player " + "SET loginTime = NOW()"
+				String updateSql = "UPDATE " + tableName + " SET loginTime = NOW()"
 						+ "WHERE name = ?";
 				PreparedStatement preparedUpdateStatement;
 
@@ -165,20 +162,21 @@ public class MySQL {
 
 	public void createPlayer(String playerName) {
 
-		System.out.println("spieler wird erstellt");
 
 		con = getInstance();
 
 		if (con != null) {
 			try {
 
-				String sql = "INSERT INTO player(name, loginTime, playTime) "
-						+ "VALUES(?, NOW(), ?)";
+				String sql = "INSERT INTO " + tableName + "(name, loginTime, playTime, isdeath) "
+						+ "VALUES(?, NOW(), ?, ?)";
 				PreparedStatement preparedStatement = con.prepareStatement(sql);
 
 				preparedStatement.setString(1, playerName);
 
 				preparedStatement.setInt(2, 0);
+				
+				preparedStatement.setString(3, "F");
 
 				preparedStatement.executeUpdate();
 
@@ -191,7 +189,7 @@ public class MySQL {
 
 	public void updatePlayer(String playerName) {
 
-		System.out.println("spieler wird aktualisiert");
+
 
 		con = getInstance();
 
@@ -199,13 +197,13 @@ public class MySQL {
 			try {
 
 				String diffSql = "SELECT playTime, TIMESTAMPDIFF(second, loginTime, NOW()) AS diff "
-						+ "FROM player " + "WHERE name = ?";
+						+ "FROM " + tableName + " WHERE name = ?";
 
 				PreparedStatement diffStatement = con.prepareStatement(diffSql);
 				diffStatement.setString(1, playerName);
 
-				String updateSql = "UPDATE player "
-						+ "SET playTime = ? , loginTime = NOW() "
+				String updateSql = "UPDATE " + tableName
+						+ " SET playTime = ? , loginTime = NOW() "
 						+ "WHERE name = ?";
 				PreparedStatement preparedUpdateStatement;
 
@@ -236,8 +234,8 @@ public class MySQL {
 		if (con != null) {
 			try {
 
-				String diffSql = "SELECT playTime " + "FROM player "
-						+ "WHERE name = ?";
+				String diffSql = "SELECT playTime " + "FROM " + tableName 
+						+ " WHERE name = ?";
 
 				PreparedStatement diffStatement = con.prepareStatement(diffSql);
 				diffStatement.setString(1, playerName);
@@ -264,7 +262,7 @@ public class MySQL {
 		if (con != null) {
 
 			try {
-				String updateSql = "UPDATE player " + "SET playTime = 0"
+				String updateSql = "UPDATE " + tableName + " SET playTime = 0"
 						+ "WHERE name = ?";
 				PreparedStatement preparedUpdateStatement;
 
@@ -283,6 +281,90 @@ public class MySQL {
 		}
 
 		return success;
+	}
+
+	public void setDeathtrue(String playerName) {
+		
+		con = getInstance();
+
+
+		if (con != null) {
+
+			try {
+				String updateSql = "UPDATE " + tableName
+						+ " SET playTime = ? , isDeath = ? "
+						+ "WHERE name = ?";
+				PreparedStatement preparedUpdateStatement;
+
+				preparedUpdateStatement = con.prepareStatement(updateSql);
+				preparedUpdateStatement.setString(2, "T");
+				preparedUpdateStatement.setInt(1, getPlayTime(playerName));
+				preparedUpdateStatement.setString(3, playerName);
+
+				preparedUpdateStatement.executeUpdate();
+
+			
+
+			} catch (SQLException e) {
+
+				e.printStackTrace();
+			}
+
+		}
+		
+	}
+
+	public ArrayList<String> getTopList() {
+		
+		con = getInstance();
+		ArrayList<String> toplist = new ArrayList<String>();
+
+		if (con != null) {
+			try {
+
+				String diffSql = "SELECT name, playTime " + "FROM " + tableName 
+						+ " ORDER BY playTime DESC";
+
+				PreparedStatement diffStatement = con.prepareStatement(diffSql);
+
+
+				ResultSet result = diffStatement.executeQuery();
+				
+				
+
+				while(result.next()){
+					
+					
+					
+					String test = String.format("%1$-20s %2$-15s", result.getString("name"), convertTime(result.getInt("playTime")));
+					
+					toplist.add(test);
+					
+				
+				}
+
+
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return toplist;
+
+		
+	}
+
+	private String convertTime(int playTime) {
+		
+		int sec = playTime % 60;
+		int min = playTime / 60 % 60;
+		int hour = playTime / 60 / 60 % 24;
+		int day = playTime / 60 / 60 / 24;
+
+		String playTimeString = day + "d / " + hour + "h / " + min + "m / " + sec + "s ";
+		
+		return playTimeString;
 	}
 
 }

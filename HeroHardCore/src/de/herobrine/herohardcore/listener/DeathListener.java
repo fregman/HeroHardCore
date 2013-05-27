@@ -22,7 +22,6 @@ public class DeathListener extends HeroListener {
 
 		Player player = event.getEntity();
 		StringBuilder kickMsg = new StringBuilder();
-		String secondChance;
 
 		int playTime = mysql.getPlayTime(player.getName());
 
@@ -60,18 +59,19 @@ public class DeathListener extends HeroListener {
 							.append(" \n" + getConfigString("luck"));
 
 					player.setBanned(true);
+					mysql.setDeathtrue(player.getName());
 
 				} else {
 
 					kickMsg.append(getConfigString("playerDies") + "\n")
-					.append(getConfigString("playTime")).append(day)
-					.append(" ").append(dayString).append(", ").append(hour)
-					.append(" ").append(hourString)
-					.append(", ").append(min)
-					.append(" ").append(minString)
-					.append(", ").append(sec)
-					.append(" ").append(secString)
-					.append(" \n" + getConfigString("secondChance"));
+						.append(getConfigString("playTime")).append(day)
+						.append(" ").append(dayString).append(", ").append(hour)
+						.append(" ").append(hourString)
+						.append(", ").append(min)
+						.append(" ").append(minString)
+						.append(", ").append(sec)
+						.append(" ").append(secString)
+						.append(" \n" + getConfigString("secondChance"));
 
 				}
 
@@ -79,6 +79,7 @@ public class DeathListener extends HeroListener {
 		}
 
 		player.kickPlayer(kickMsg.toString());
+		
 	}
 
 }

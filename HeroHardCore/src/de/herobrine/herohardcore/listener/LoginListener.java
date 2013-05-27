@@ -98,11 +98,12 @@ public class LoginListener extends HeroListener {
 
 			playerCount += 10;
 
-			y = checkTop(player, playerCount, maxy);
+			
 		}
-
-		player.teleport(new Location(world, playerCount, (y + 3), playerCount));
-		world.setTime(0);
+		y = checkTop(player, playerCount, maxy);
+	
+		player.teleport(new Location(world, playerCount, (y + 2), playerCount));
+;
 
 	}
 

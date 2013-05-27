@@ -3,13 +3,13 @@ saveIntervallInSeconds: 10
 banOnDeath: true
 secondChance: true
 secondChanceTime: 120
-enableMySQL: true
 mysql:
-   host: 85.131.156.196
+   host: changeMe
    port: 3306
-   database: ni4078_1_DB
-   username: ni4078_1_DB
-   password: qpyZ7yS7
+   database: changeMe
+   tablename: changeMe
+   username: changeMe
+   password: changeMe
 en:
    day: "day"
    days: "days"
@@ -27,7 +27,7 @@ en:
    confirmCodeWrong: "confirmcode wrong, please try again. "
    playTime: "Your playtime: "
    noPermission: "You don't have the permission to do that!"
-   secondChance: "You got a second Chance, don't be careful this time!"
+   secondChance: "You got a second Chance, be careful this time!"
 de:
    day: "Tag"
    days: "Tage"
@@ -46,4 +46,40 @@ de:
    playTime: "Deine Spielzeit: "
    noPermission: "Du hast nicht die noetigen Rechte dafuer!"
    secondChance: "Du hast eine zweite Chance erhalten, sei vorsichtiger!"
+fr:
+   day: "jour"
+   days: "jours"
+   hour: "heure"
+   hours: "heures"
+   minute: "minute"
+   minutes: "minutes"
+   second: "seconde"
+   seconds: "secondes"
+   playerDies: "Vous etes mort :("
+   luck: "Bonne chance pour la prochaine fois!"
+   playerNotOnServer: "Le joueur n'est pas sur le serveur!"
+   pleaseConfirm: "Merci de confirmer le reset du joueur "
+   withresetConfirm: "avec /reset confirm "
+   confirmCodeWrong: "Le code de confirmation est incorrect, merci de reessayer "
+   playTime: "Votre temps de jeu: "
+   noPermission: "Vous n'avez pas la permission de faire cela!"
+   secondChance: "Vous avez une seconde chance... Faites attention cette fois!"
+it:
+   day: "giorno"
+   days: "giorni"
+   hour: "ora"
+   hours: "ore"
+   minute: "minuto"
+   minutes: "minuti"
+   second: "secondo"
+   seconds: "secondi"
+   playerDies: "Sei morto :("
+   luck: "Avrai più fortuna la prossima volta!"
+   playerNotOnServer: "Il Giocatore non è sul server!"
+   pleaseConfirm: "Sei pregato di confermare il reset del Giocatore "
+   withresetConfirm: "con /reset confermi "
+   confirmCodeWrong: "codice di conferma errato, riprova per favore. "
+   playTime: "Il tuo tempo di gioco: "
+   noPermission: "Non hai il permesso di farlo!"
+   secondChance: "Hai ottenuto una seconda Possibilità, stai più attento questa volta!"
 

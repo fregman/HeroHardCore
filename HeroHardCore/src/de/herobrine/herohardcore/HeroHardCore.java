@@ -1,5 +1,7 @@
 package de.herobrine.herohardcore;
 
+import java.io.File;
+
 import org.bukkit.plugin.java.JavaPlugin;
 
 import de.herobrine.herohardcore.commandExecutor.HeroCommandExecutor;
@@ -15,27 +17,31 @@ public class HeroHardCore extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
-
-		if (getConfig().getBoolean("enableMySQL")) {
-
-			MySQL mysql = new MySQL(this);
-
-			if (!mysql.checkTable()) {
-
-				mysql.createTable();
-
-				if (mysql.checkTable()) {
-
-					getLogger().info("MySQL table created");
-
-				} else {
-
-					getLogger().warning("Was not able to create MySQL table");
-
-				}
-			}
-
+		
+		File config = new File(getDataFolder(), "config.yml");
+		if(!config.exists()){
+			this.saveDefaultConfig();
+			
 		}
+		
+				
+				MySQL mysql = new MySQL(this);
+
+				if (!mysql.checkTable()) {
+
+					mysql.createTable();
+
+					if (mysql.checkTable()) {
+
+						getLogger().info("MySQL table created");
+
+					} else {
+
+						getLogger().warning("Was not able to create MySQL table");
+
+					}
+				}
+		
 
 		this.language = getConfig().getString("language");
 		this.intervall = getConfig().getInt("saveIntervallInSeconds") * 20;
@@ -45,6 +51,8 @@ public class HeroHardCore extends JavaPlugin {
 		new DeathListener(this);
 
 		getCommand("reset").setExecutor(new HeroCommandExecutor(this));
+		getCommand("toplist").setExecutor(new HeroCommandExecutor(this));
+		
 
 	}
 

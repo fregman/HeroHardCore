@@ -1,5 +1,6 @@
 package de.herobrine.herohardcore.commandExecutor;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import org.bukkit.OfflinePlayer;
@@ -39,7 +40,7 @@ public class HeroCommandExecutor implements CommandExecutor {
 
 			if (sender instanceof Player) {
 
-				if (!sender.hasPermission("herohardcore.reset")) {
+				if (sender.hasPermission("herohardcore.reset")) {
 
 					Player player = (Player) sender;
 					resetPlayer = server.getOfflinePlayer(args[0]);
@@ -104,6 +105,27 @@ public class HeroCommandExecutor implements CommandExecutor {
 
 			}
 		}
+		
+		if (command.getName().equalsIgnoreCase("toplist")){
+			
+			ArrayList<String> toplist = new ArrayList<String>();
+			
+			toplist = mysql.getTopList();
+			
+			int size = toplist.size();
+			
+			if (size > 5) {size = 5;}
+			
+			for (int i = 0; i < size; i++){
+				
+				sender.sendMessage((i+1) + ": " + toplist.get(i));
+				
+			}
+			
+			success = true;
+		}
+			
+			
 
 		return success;
 

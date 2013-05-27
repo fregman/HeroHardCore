@@ -92,7 +92,7 @@ public class MySQL {
 				query = con.createStatement();
 
 				String sql = "CREATE TABLE " + tableName + "(id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY(id), name VARCHAR(30),  " +
-						     "loginTime TIMESTAMP, playTime INT, isdeath CHAR)";
+						     "loginTime TIMESTAMP, playTime INT, isdead CHAR)";
 
 				query.execute(sql);
 
@@ -117,7 +117,7 @@ public class MySQL {
 			try {
 
 				String querySql = "SELECT *" + "FROM " + tableName
-						+ " WHERE name = ?";
+						+ " WHERE name = ";
 
 				PreparedStatement preparedQueryStatement = con
 						.prepareStatement(querySql);
@@ -168,7 +168,7 @@ public class MySQL {
 		if (con != null) {
 			try {
 
-				String sql = "INSERT INTO " + tableName + "(name, loginTime, playTime, isdeath) "
+				String sql = "INSERT INTO " + tableName + "(name, loginTime, playTime, isdead) "
 						+ "VALUES(?, NOW(), ?, ?)";
 				PreparedStatement preparedStatement = con.prepareStatement(sql);
 
@@ -292,7 +292,7 @@ public class MySQL {
 
 			try {
 				String updateSql = "UPDATE " + tableName
-						+ " SET playTime = ? , isDeath = ? "
+						+ " SET playTime = ? , isdead = ? "
 						+ "WHERE name = ?";
 				PreparedStatement preparedUpdateStatement;
 
